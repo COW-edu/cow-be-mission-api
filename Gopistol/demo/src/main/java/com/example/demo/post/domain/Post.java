@@ -31,7 +31,6 @@ public class Post {
 
   @Id // PK로 사용하겠다.
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  // IDENTITY: 기본 DB 방식을 사용할게요. Oracle 등 다른 예시 찾아보기
   private Long id;
 
   private String title;
@@ -56,18 +55,6 @@ public class Post {
     return this.comments;
   }
 
-  @Override
-  public String toString() {
-    return "Post{" +
-        "id=" + id +
-        ", title='" + title + '\'' +
-        ", content='" + content + '\'' +
-        ", commentCount=" + commentCount +
-        ", createAt=" + createAt +
-        ", member=" + (member != null ? member.getName() : null) + // 작성자 정보 출력 (예: 작성자의 사용자 이름)
-        ", comments=" + comments.size() + " comments" + // 댓글 수 출력
-        '}';
-  }
   public void addComment(Comment comment) {
     this.getComments().add(comment);
     comment.setPost(this);
