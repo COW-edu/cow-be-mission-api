@@ -10,6 +10,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
@@ -17,6 +19,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 //@Table(name = "users") // Table 이름 바꾸고 싶으면 이렇게.
 @Data
@@ -37,6 +40,8 @@ public class Post {
 
   private int commentCount;
 
+  private LocalDateTime createAt;
+
   @ManyToOne(fetch = FetchType.LAZY)
   private Member member;
 
@@ -44,9 +49,25 @@ public class Post {
   private List<Comment> comments = new ArrayList<>();
 
   public static Post create(Member member, String title, String content) {
-    return new Post(null, title, content, 0, member, null);
+    return new Post(null, title, content, 0, LocalDateTime.now(), member, null);
   }
 
+  public List<Comment> getComments() {
+    return this.comments;
+  }
+
+  @Override
+  public String toString() {
+    return "Post{" +
+        "id=" + id +
+        ", title='" + title + '\'' +
+        ", content='" + content + '\'' +
+        ", commentCount=" + commentCount +
+        ", createAt=" + createAt +
+        ", member=" + (member != null ? member.getName() : null) + // 작성자 정보 출력 (예: 작성자의 사용자 이름)
+        ", comments=" + comments.size() + " comments" + // 댓글 수 출력
+        '}';
+  }
   public void addComment(Comment comment) {
     this.getComments().add(comment);
     comment.setPost(this);
