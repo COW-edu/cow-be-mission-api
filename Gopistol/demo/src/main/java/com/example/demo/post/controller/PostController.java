@@ -29,20 +29,7 @@ public class PostController {
 
   @GetMapping("/posts")
   public List<PostsResponseDTO> getAllPosts() {
-    List<Post> posts = postService.getAllPosts();
-    // DTO객체에 넣어주기
-    List<PostsResponseDTO> postsResponseDTOS = new ArrayList<>(posts.size());
-    for (Post post : posts) {
-      PostsResponseDTO postResponseDTO = new PostsResponseDTO();
-      postResponseDTO.setPostId(post.getId());
-      postResponseDTO.setMemberName(post.getMember().getName());
-      postResponseDTO.setTitle(post.getTitle());
-      postResponseDTO.setContent(post.getContent());
-      postResponseDTO.setCommentCount(post.getCommentCount());
-
-      postsResponseDTOS.add(postResponseDTO);
-    }
-    return postsResponseDTOS;
+    return postService.getAllPosts();
   }
 
   @PostMapping("/members/{id}")

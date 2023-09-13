@@ -37,26 +37,12 @@ public class MemberController {
 
   @GetMapping("/{id}")
   public MemberResponseDTO getMember(@PathVariable Long id) throws NotFoundException {
-    MemberResponseDTO memberResponseDTO = new MemberResponseDTO();
-    Member member = memberService.findOne(id);
-    memberResponseDTO.setName(member.getName());
-    memberResponseDTO.setAuthId(member.getAuthId());
-    return memberResponseDTO;
+    return memberService.getMemberDTO(id);
   }
 
   // 모든 회원을 조회하여 Member 의 AuthId, Name 을 리스트로 반환
   @GetMapping
   public List<MemberResponseDTO> getAllMembers() {
-    List<Member> members = memberService.findAllMembers();
-    List<MemberResponseDTO> memberResponseDTOList = new ArrayList<>(members.size());
-
-    for (Member member : members) {
-      MemberResponseDTO memberResponseDTO = new MemberResponseDTO();
-      memberResponseDTO.setAuthId(member.getAuthId());
-      memberResponseDTO.setName(member.getName());
-
-      memberResponseDTOList.add(memberResponseDTO);
-    }
-    return memberResponseDTOList;
+    return memberService.getMembersDTO();
   }
 }

@@ -6,6 +6,7 @@ import com.example.demo.member.domain.Member;
 import com.example.demo.member.repository.MemberRepository;
 import com.example.demo.post.controller.request.CreatePostRequest;
 import com.example.demo.post.controller.response.PostResponseDTO;
+import com.example.demo.post.controller.response.PostsResponseDTO;
 import com.example.demo.post.domain.Post;
 import com.example.demo.post.repository.PostRepository;
 import jakarta.transaction.Transactional;
@@ -41,8 +42,21 @@ public class PostService {
 
     return postResponseDTO;
   }
-  public List<Post> getAllPosts() {
-    return postRepository.findAll();
+  public List<PostsResponseDTO> getAllPosts() {
+    List<Post> posts = postRepository.findAll();
+
+    List<PostsResponseDTO> postsResponseDTOS = new ArrayList<>(posts.size());
+    for (Post post : posts) {
+      PostsResponseDTO postResponseDTO = new PostsResponseDTO();
+      postResponseDTO.setPostId(post.getId());
+      postResponseDTO.setMemberName(post.getMember().getName());
+      postResponseDTO.setTitle(post.getTitle());
+      postResponseDTO.setContent(post.getContent());
+      postResponseDTO.setCommentCount(post.getCommentCount());
+
+      postsResponseDTOS.add(postResponseDTO);
+    }
+    return postsResponseDTOS;
   }
   public void createPost(Long id, CreatePostRequest createPostRequest) {
     Member member = memberRepository.getReferenceById(id);
