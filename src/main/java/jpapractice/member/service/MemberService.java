@@ -1,15 +1,13 @@
 package jpapractice.member.service;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jpapractice.member.controller.dto.request.UpdateMemberRequest;
+import jpapractice.member.controller.dto.response.MemberResponse;
 import jpapractice.member.entity.Member;
 import jpapractice.member.controller.dto.request.MemberRequest;
 import jpapractice.member.repository.MemberRepository;
-import jpapractice.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -19,10 +17,10 @@ public class MemberService {
 
 	private final MemberRepository memberRepository;
 
-	public Long join(MemberRequest memberRequest) {
+	public MemberResponse join(MemberRequest memberRequest) {
 		Member member = memberRequest.toEntity();
 		memberRepository.save(member);
-		return member.getId();
+		return MemberResponse.from(member);
 	}
 
 	@Transactional(readOnly = true)

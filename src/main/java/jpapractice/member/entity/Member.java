@@ -27,7 +27,7 @@ public class Member {
 	private String email;
 	private String password;
 
-	@OneToMany(mappedBy = "member")
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
 	private List<Post> posts = new ArrayList<>();
 
 	@Builder
