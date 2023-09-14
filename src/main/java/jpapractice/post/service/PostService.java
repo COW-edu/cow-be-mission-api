@@ -27,7 +27,7 @@ public class PostService {
 		Post post = postRequest.toEntity(member);
 		post.changeMember(member);
 		postRepository.save(post);
-		return PostResponse.of(post)
+		return PostResponse.of(post);
 	}
 
 	@Transactional(readOnly = true)
