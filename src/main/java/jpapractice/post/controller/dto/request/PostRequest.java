@@ -2,11 +2,9 @@ package jpapractice.post.controller.dto.request;
 
 import java.time.LocalDate;
 
-import jakarta.validation.constraints.Min;
+
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import jpapractice.member.entity.Member;
 import jpapractice.post.entity.Post;
 import lombok.Getter;
@@ -14,7 +12,11 @@ import lombok.Getter;
 @Getter
 public class PostRequest {
 
+	@NotBlank(message = "post의 제목을 입력해주세요")
+	@Size(min = 1, max = 20, message = "제목은 1자에서 20자 사이여야합니다.")
 	private String title;
+
+	@NotBlank(message = "내용을 입력해주세요.")
 	private String contents;
 
 	public Post toEntity(Member member) {

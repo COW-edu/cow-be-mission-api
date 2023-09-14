@@ -47,7 +47,7 @@ public class PostService {
 		if (isCorrectPost(postId, posts)) {
 			postRepository.deleteById(postId);
 		} else {
-			throw new Exception("사용자의 포스트가 아닙니다.");
+			throw new IllegalArgumentException("사용자의 포스트가 아닙니다.");
 		}
 	}
 
