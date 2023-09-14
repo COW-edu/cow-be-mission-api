@@ -8,12 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import jpapractice.comment.controller.dto.request.CommentRequest;
+import jpapractice.comment.controller.dto.response.CommentResponse;
 import jpapractice.comment.service.CommentService;
-import jpapractice.member.entity.Member;
-import jpapractice.member.service.MemberService;
-import jpapractice.post.entity.Post;
-import jpapractice.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -22,12 +20,10 @@ import lombok.RequiredArgsConstructor;
 public class CommentController {
 
 	private final CommentService commentService;
-	private final PostService postService;
 
 	@PostMapping("/comment")
-	public String comment(@PathVariable Long postId,
-		@RequestBody CommentRequest commentRequest) {
-		commentService.register(postId, commentRequest);
-		return commentRequest.getContents();
+	public CommentResponse comment(@PathVariable Long postId,
+		@Valid @RequestBody CommentRequest commentRequest) {
+		return commentService.register(postId, commentRequest);
 	}
 }
