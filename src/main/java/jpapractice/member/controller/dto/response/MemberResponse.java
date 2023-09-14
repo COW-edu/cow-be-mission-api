@@ -16,7 +16,7 @@ public class MemberResponse {
 		this.name = name;
 	}
 
-	public static MemberResponse from(Member member) {
+	public static MemberResponse of(Member member) {
 		return MemberResponse.builder()
 			.id(member.getId())
 			.name(member.getName())

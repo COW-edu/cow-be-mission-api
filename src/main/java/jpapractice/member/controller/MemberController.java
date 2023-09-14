@@ -31,7 +31,7 @@ public class MemberController {
 	@GetMapping("/{memberId}")
 	public MemberResponse find(@PathVariable Long memberId) {
 		Member member = memberService.findOne(memberId);
-		return MemberResponse.from(member);
+		return MemberResponse.of(member);
 	}
 
 	@PatchMapping("/{memberId}/edit")

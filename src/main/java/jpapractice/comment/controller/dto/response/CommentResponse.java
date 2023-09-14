@@ -12,7 +12,7 @@ public class CommentResponse {
 		this.contents = contents;
 	}
 
-	public static CommentResponse from(Comment comment) {
+	public static CommentResponse of(Comment comment) {
 		return CommentResponse.builder()
 			.contents(comment.getContents())
 			.build();

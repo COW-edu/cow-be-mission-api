@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jpapractice.member.entity.Member;
 import jpapractice.member.service.MemberService;
+import jpapractice.post.controller.dto.response.PostResponse;
 import jpapractice.post.entity.Post;
 import jpapractice.post.controller.dto.request.PostRequest;
 import jpapractice.post.repository.PostRepository;
@@ -21,12 +22,12 @@ public class PostService {
 	private final PostRepository postRepository;
 	private final MemberService memberService;
 
-	public Long register(PostRequest postRequest, Long memberId) {
+	public PostResponse register(PostRequest postRequest, Long memberId) {
 		Member member = memberService.findOne(memberId);
 		Post post = postRequest.toEntity(member);
 		post.changeMember(member);
 		postRepository.save(post);
-		return post.getId();
+		return PostResponse.of(post)
 	}
 
 	@Transactional(readOnly = true)

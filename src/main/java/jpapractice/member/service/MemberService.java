@@ -20,7 +20,7 @@ public class MemberService {
 	public MemberResponse join(MemberRequest memberRequest) {
 		Member member = memberRequest.toEntity();
 		memberRepository.save(member);
-		return MemberResponse.from(member);
+		return MemberResponse.of(member);
 	}
 
 	@Transactional(readOnly = true)

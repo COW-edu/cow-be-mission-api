@@ -25,6 +25,6 @@ public class CommentService {
 
 		Post post = postService.findPost(postId);
 		comment.changePost(post);
-		return CommentResponse.from(comment);
+		return CommentResponse.of(comment);
 	}
 }

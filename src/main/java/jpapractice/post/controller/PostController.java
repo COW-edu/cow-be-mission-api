@@ -27,9 +27,8 @@ public class PostController {
 	private final PostService postService;
 
 	@PostMapping("/new")
-	public String post(@PathVariable Long memberId, @Valid @RequestBody PostRequest postRequest) {
-		postService.register(postRequest, memberId);
-		return "posting success";
+	public PostResponse post(@PathVariable Long memberId, @Valid @RequestBody PostRequest postRequest) {
+		return postService.register(postRequest, memberId);
 	}
 
 	@GetMapping("/{postId}")
