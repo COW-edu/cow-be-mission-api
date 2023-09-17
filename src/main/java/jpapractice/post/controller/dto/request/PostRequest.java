@@ -19,12 +19,11 @@ public class PostRequest {
 	@NotBlank(message = "내용을 입력해주세요.")
 	private String contents;
 
-	public Post toEntity(Member member) {
+	public Post toEntity(final Member member) {
 		 return Post.builder()
 			.title(title)
 			.contents(contents)
-			.writer(member.getName())
-		 	.createDate(LocalDate.now())
+		 	.createdAt(LocalDate.now())
 			.member(member)
 			.build();
 	}

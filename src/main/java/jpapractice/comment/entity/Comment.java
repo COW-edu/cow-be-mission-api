@@ -9,13 +9,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jpapractice.post.entity.Post;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Comment {
 
 	@Id
@@ -30,7 +31,7 @@ public class Comment {
 	public void changePost(Post post) {
 		this.post = post;
 		post.getComments().add(this);
-		post.plusCommentAmount();
+		post.updateCommentAmount();
 	}
 
 	@Builder

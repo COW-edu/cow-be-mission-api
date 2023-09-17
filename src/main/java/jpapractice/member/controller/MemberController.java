@@ -24,19 +24,19 @@ public class MemberController {
 	private final MemberService memberService;
 
 	@PostMapping("/new")
-	public MemberResponse create(@Valid @RequestBody MemberRequest memberRequest) {
+	public MemberResponse create(@Valid @RequestBody final MemberRequest memberRequest) {
 		return memberService.join(memberRequest);
 	}
 
 	@GetMapping("/{memberId}")
-	public MemberResponse findMember(@PathVariable Long memberId) {
+	public MemberResponse findMember(@PathVariable final Long memberId) {
 		Member member = memberService.findOne(memberId);
 		return MemberResponse.of(member);
 	}
 
 	@PatchMapping("/{memberId}/edit")
-	public void updateMember(@RequestBody UpdateMemberRequest updateMemberRequest, @PathVariable Long memberId) {
-		memberService.update(memberId, updateMemberRequest);
+	public void updateMember(@RequestBody final UpdateMemberRequest updateMemberRequest, @PathVariable Long memberId) {
+		memberService.updateMember(memberId, updateMemberRequest);
 	}
 
 }

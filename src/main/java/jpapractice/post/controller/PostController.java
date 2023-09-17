@@ -27,26 +27,23 @@ public class PostController {
 	private final PostService postService;
 
 	@PostMapping("/new")
-	public PostResponse post(@PathVariable Long memberId, @Valid @RequestBody PostRequest postRequest) {
+	public PostResponse post(@PathVariable final Long memberId, @Valid @RequestBody final PostRequest postRequest) {
 		return postService.register(postRequest, memberId);
 	}
 
 	@GetMapping("/{postId}")
-	public PostResponse findPost(@PathVariable Long postId) {
+	public PostResponse findPost(@PathVariable final Long postId) {
 		Post post = postService.findPost(postId);
 		return PostResponse.of(post);
 	}
 
 	@GetMapping
-	public List<PostAllResponse> postList(@PathVariable Long memberId) {
-		List<Post> posts = postService.findAllPosts(memberId);
-		return posts.stream()
-			.map(PostAllResponse::of)
-			.collect(Collectors.toList());
+	public List<PostAllResponse> findPosts(@PathVariable final Long memberId) {
+		return postService.findAllPosts(memberId);
 	}
 
 	@DeleteMapping("/{postId}")
-	public void deletePost(@PathVariable Long postId, @PathVariable Long memberId) throws Exception {
+	public void deletePost(@PathVariable final Long postId, @PathVariable final Long memberId) {
 		postService.delete(memberId, postId);
 	}
 }

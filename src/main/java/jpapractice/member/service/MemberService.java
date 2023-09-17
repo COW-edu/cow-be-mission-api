@@ -17,21 +17,21 @@ public class MemberService {
 
 	private final MemberRepository memberRepository;
 
-	public MemberResponse join(MemberRequest memberRequest) {
+	public MemberResponse join(final MemberRequest memberRequest) {
 		Member member = memberRequest.toEntity();
 		memberRepository.save(member);
 		return MemberResponse.of(member);
 	}
 
 	@Transactional(readOnly = true)
-	public Member findOne(Long memberId) {
+	public Member findOne(final Long memberId) {
 		return memberRepository.findById(memberId)
 			.orElseThrow(() -> new IllegalArgumentException("[Error] 사용자를 찾을 수 없습니다."));
 	}
 
-	public Long update(Long memberId, UpdateMemberRequest updateMemberRequest) {
+	public Long updateMember(final Long memberId, UpdateMemberRequest updateMemberRequest) {
 		Member member = findOne(memberId);
-		member.updateMember(updateMemberRequest);
+		member.update(updateMemberRequest);
 		return member.getId();
 	}
 }

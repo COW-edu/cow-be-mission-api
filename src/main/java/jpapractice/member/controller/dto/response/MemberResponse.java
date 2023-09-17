@@ -11,12 +11,12 @@ public class MemberResponse {
 	private String name;
 
 	@Builder
-	public MemberResponse(Long id, String name) {
+	public MemberResponse(final Long id, final String name) {
 		this.id = id;
 		this.name = name;
 	}
 
-	public static MemberResponse of(Member member) {
+	public static MemberResponse of(final Member member) {
 		return MemberResponse.builder()
 			.id(member.getId())
 			.name(member.getName())

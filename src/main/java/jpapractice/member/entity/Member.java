@@ -31,22 +31,21 @@ public class Member {
 	private List<Post> posts = new ArrayList<>();
 
 	@Builder
-	private Member(String name, String email, String password) {
+	private Member(final String name, final String email, final String password) {
 		this.name = name;
 		this.email = email;
 		this.password = password;
 	}
 
-	public void updateMember(UpdateMemberRequest request) {
+	public void update(final UpdateMemberRequest request) {
 		this.name = request.getName() != null ? request.getName() : this.name;
 		this.email = request.getEmail() != null ? request.getEmail() : this.email;
 		this.password = request.getPassword() != null ? request.getPassword() : this.password;
-		updatePostWriter(request);
 	}
 
-	private void updatePostWriter(UpdateMemberRequest request) {
-		String writer = request.getName();
-		posts.stream()
-			.forEach(post -> post.updateWriter(writer));
-	}
+	// private void updatePostWriter(UpdateMemberRequest request) {
+	// 	String writer = request.getName();
+	// 	posts.stream()
+	// 		.forEach(post -> post.updateWriter(writer));
+	// }
 }

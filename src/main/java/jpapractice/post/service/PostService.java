@@ -2,12 +2,14 @@ package jpapractice.post.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jpapractice.member.entity.Member;
 import jpapractice.member.service.MemberService;
+import jpapractice.post.controller.dto.response.PostAllResponse;
 import jpapractice.post.controller.dto.response.PostResponse;
 import jpapractice.post.entity.Post;
 import jpapractice.post.controller.dto.request.PostRequest;
@@ -33,28 +35,26 @@ public class PostService {
 	@Transactional(readOnly = true)
 	public Post findPost(Long postId) {
 		return postRepository.findById(postId)
-			.orElseThrow(() -> new IllegalArgumentException("사용자가 존재하지 않습니다."));
+			.orElseThrow(() -> new IllegalArgumentException("[Error] 포스트가 존재하지 않습니다."));
 	}
 
 	@Transactional(readOnly = true)
-	public List<Post> findAllPosts(Long memberId) {
+	public List<PostAllResponse> findAllPosts(Long memberId) {
 		Member member = memberService.findOne(memberId);
-		return postRepository.findAllByMember(member);
+		List<Post> posts = postRepository.findAllByMember(member);
+		return posts.stream()
+			.map(PostAllResponse::of)
+			.collect(Collectors.toList());
 	}
 
-	public void delete(Long memberId, Long postId) throws Exception {
-		Member member = memberService.findOne(memberId);
-		List<Post> posts = member.getPosts();
-		if (isCorrectPost(postId, posts)) {
+	public void delete(Long memberId, Long postId) {
+		Post post = postRepository.findById(postId)
+			.orElseThrow(() -> new IllegalArgumentException("[Error] 사용자가 존재하지 않습니다."));
+		if (post.isCorrectMember(memberId)) {
 			postRepository.deleteById(postId);
 		} else {
-			throw new IllegalArgumentException("사용자의 포스트가 아닙니다.");
+			throw new IllegalArgumentException("[Error] 사용자의 포스트가 아닙니다.");
 		}
-	}
-
-	private boolean isCorrectPost(Long postId, List<Post> posts) {
-		return posts.stream()
-			.anyMatch(post -> post.getId().equals(postId));
 	}
 
 }

@@ -16,18 +16,18 @@ public class PostAllResponse {
 	private int commentAmount;
 
 	@Builder
-	public PostAllResponse(Long id, String title, String writer, int commentAmount) {
+	public PostAllResponse(final Long id, final String title, final String writer, final int commentAmount) {
 		this.id = id;
 		this.title = title;
 		this.writer = writer;
 		this.commentAmount = commentAmount;
 	}
 
-	public static PostAllResponse of(Post post) {
+	public static PostAllResponse of(final Post post) {
 		return PostAllResponse.builder()
 			.id(post.getId())
 			.title(post.getTitle())
-			.writer(post.getWriter())
+			.writer(post.getMember().getName())
 			.commentAmount(post.getCommentAmount())
 			.build();
 	}

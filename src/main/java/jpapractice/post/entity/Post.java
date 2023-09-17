@@ -3,6 +3,7 @@ package jpapractice.post.entity;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.data.annotation.CreatedDate;
 
@@ -32,12 +33,11 @@ public class Post {
 	private String title;
 
 	private String contents;
-	private String writer;
 
 	private int commentAmount;
 
 	@CreatedDate
-	private LocalDate createDate;
+	private LocalDate createdAt;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Member member;
@@ -46,24 +46,24 @@ public class Post {
 	private List<Comment> comments = new ArrayList<>();
 
 	@Builder
-	public Post(String title, String contents, String writer, LocalDate createDate, Member member) {
+	public Post(final String title, final String contents, final LocalDate createdAt, final Member member) {
 		this.title = title;
 		this.contents = contents;
-		this.writer = writer;
-		this.createDate = createDate;
+		this.createdAt = createdAt;
 		this.member = member;
 	}
 
-	public void changeMember(Member member) {
+	public void changeMember(final Member member) {
 		this.member = member;
 		member.getPosts().add(this);
 	}
 
-	public void plusCommentAmount() {
+	public void updateCommentAmount() {
 		this.commentAmount = comments.size();
 	}
 
-	public void updateWriter(String writer) {
-		this.writer = writer;
+	public boolean isCorrectMember(final Long memberId) {
+		return Objects.equals(member.getId(), memberId);
 	}
+
 }
