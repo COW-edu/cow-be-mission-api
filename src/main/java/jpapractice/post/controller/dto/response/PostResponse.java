@@ -1,7 +1,6 @@
 package jpapractice.post.controller.dto.response;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import jpapractice.comment.entity.Comment;
