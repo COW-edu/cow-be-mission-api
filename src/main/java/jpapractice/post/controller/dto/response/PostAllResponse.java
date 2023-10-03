@@ -16,7 +16,7 @@ public class PostAllResponse {
 	private int commentAmount;
 
 	@Builder
-	public PostAllResponse(final Long id, final String title, final String writer, final int commentAmount) {
+	private PostAllResponse(final Long id, final String title, final String writer, final int commentAmount) {
 		this.id = id;
 		this.title = title;
 		this.writer = writer;

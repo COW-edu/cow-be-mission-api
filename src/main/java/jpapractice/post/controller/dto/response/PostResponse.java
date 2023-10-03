@@ -17,7 +17,7 @@ public class PostResponse {
 	private String comments;
 
 	@Builder
-	public PostResponse(final String title, final String contents, final String writer,
+	private PostResponse(final String title, final String contents, final String writer,
 		LocalDate createDate, String comments) {
 		this.title = title;
 		this.contents = contents;

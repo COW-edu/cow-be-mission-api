@@ -36,7 +36,7 @@ public class Comment extends BaseEntity {
 	}
 
 	@Builder
-	public Comment(String writer, String contents, Post post) {
+	private Comment(String writer, String contents, Post post) {
 		this.writer = writer;
 		this.contents = contents;
 		this.post = post;

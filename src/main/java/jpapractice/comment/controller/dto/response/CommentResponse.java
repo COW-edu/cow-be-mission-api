@@ -10,7 +10,7 @@ public class CommentResponse {
 	String contents;
 
 	@Builder
-	public CommentResponse(String contents) {
+	private CommentResponse(String contents) {
 		this.contents = contents;
 	}
 
