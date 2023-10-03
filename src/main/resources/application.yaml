@@ -1,0 +1,49 @@
+# default
+spring:
+  profiles:
+    default: local
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/cow_session
+    password: Gh852852!
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+---
+# local 환경
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: 'true'
+        show_sql: 'true'
+    hibernate:
+      ddl-auto: update
+#    defer-datasource-initialization: true # (2.5~) Hibernate 초기화 이후 data.sql 실행
+
+---
+# test 환경
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  sql:
+    init:
+      mode: never
